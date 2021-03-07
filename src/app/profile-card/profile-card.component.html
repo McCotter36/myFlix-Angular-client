@@ -1,0 +1,62 @@
+<app-navigation-card></app-navigation-card>
+<div class="profile-info">
+  <p>Username: {{user.Username}}</p>
+  <p>Email: {{user.Email}}</p>
+  <p>Birthday: {{user.Birthday}}</p>
+  <button
+  (click)="openUpdateProfileDialog()"
+  mat-button
+  color="primary">
+  Update User Info
+  </button>
+  <button
+  (click)="deleteUser()"
+  mat-button
+  color="primary">
+  Delete User Account</button>
+</div>
+<div class="favorites-title">
+  <h1>Your Favorites</h1>
+</div>
+<div style="display: flex;">
+  
+  <mat-card class="profile-card" *ngFor="let favorite of favorites;" style="flex: 1 1 auto;">
+      <mat-card-header>
+        <img class="favorite-card-image" src={{favorite.ImagePath}} alt= {{favorite.Title}} />
+      </mat-card-header>
+      <div class="favorite-card-title">
+        <mat-card-title class="favorite-card-title">{{favorite.Title}}</mat-card-title>
+        <mat-card-subtitle class="favorite-card-subtitle">Directed by: {{favorite.Director.Name}}</mat-card-subtitle>
+      </div>
+          <mat-card-actions>
+          <button
+            (click)="getGenre(favorite.Genre.Name, favorite.Genre.Description)"
+              mat-button
+              color="primary"
+          >
+              Genre
+          </button>
+          <button
+          (click)="getDirector(favorite.Director.Name, favorite.Director.Birth, favorite.Director.Death, favorite.Director.Bio)"
+              mat-button
+              color="primary"
+          >
+              Director
+          </button>
+          <button
+          (click)="getSynopsis(favorite.Title, favorite.Description)"
+              mat-button
+              color="primary"
+          >
+              Synopsis
+          </button>
+          <button
+          (click)="deleteFavorite(favorite._id, favorite.Title)"
+          mat-button
+          color="primary"
+          >
+          <mat-icon>favorite_border</mat-icon>
+          </button>
+      </mat-card-actions>
+  </mat-card>
+</div>

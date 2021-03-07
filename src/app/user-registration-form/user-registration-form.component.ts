@@ -9,6 +9,7 @@ import { UserRegistrationService } from '../fetch-api-data.service';
 
 // This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +24,9 @@ export class UserRegistrationFormComponent implements OnInit {
 constructor(
     public fetchApiData: UserRegistrationService,
     public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    public router: Router,
+    ) { }
 
 ngOnInit(): void {
 }
@@ -32,16 +35,16 @@ ngOnInit(): void {
 registerUser(): void {
     this.fetchApiData.userRegistration(this.userData).subscribe((response) => {
   // Logic for a successful user registration goes here! (To be implemented)
-     this.dialogRef.close(); // This will close the modal on success!
-     console.log(response);
-     this.snackBar.open('Registration success!', 'OK', {
+      this.dialogRef.close(); // This will close the modal on success!
+      console.log(response);
+      this.snackBar.open('Registration success, Please log in!', 'OK', {
         duration: 2000
      });
-    }, (response) => {
-      this.snackBar.open(response, 'OK', {
-        duration: 2000
-      });
-    });
+   }, (response) => {
+     this.snackBar.open(response, 'OK', {
+       duration: 2000
+     });
+   });
+   
   }
-
-  }
+}

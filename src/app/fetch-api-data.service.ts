@@ -3,6 +3,7 @@ import { catchError } from 'rxjs/internal/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UpdateProfileFormComponent } from './update-profile-form/update-profile-form.component';
 
 //Declaring the api url that will provide data for the client app
 const apiUrl = 'https://mccotter-movie-api.herokuapp.com/';
@@ -245,7 +246,7 @@ export class GetUserService {
   getUser(): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
-    return this.http.get(apiUrl + `users/${username}`, {
+    return this.http.get(`${apiUrl}users/${username}`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -265,9 +266,9 @@ export class GetUserService {
 export class GetFavoritesService {
   constructor(private http: HttpClient) { }
   // extract response data
-  private extractResponseData(res: Response | Object): any {
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
-    return body || {};
+    return body || { };
   }
   // handle error
   private handleError(error: HttpErrorResponse): any {
@@ -304,9 +305,9 @@ export class GetFavoritesService {
 export class AddFavoriteService {
   constructor(private http: HttpClient) { }
   // extract response data
-  private extractResponseData(res: Response | Object): any {
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
-    return body || {};
+    return body || { };
   }
   // handle error
   private handleError(error: HttpErrorResponse): any {
@@ -321,9 +322,10 @@ export class AddFavoriteService {
       'Something bad happened; please try again later.');
   }
   // === API Call to add favorite by movieID ===
-  addFavorite(): Observable<any> {
+  addFavorite(id: string): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.post(apiUrl + 'users/:username/movies/:MovieID', {
+    const username = localStorage.getItem('user');
+    return this.http.post(`${apiUrl}users/${username}/movies/${id}`, id, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -360,9 +362,10 @@ export class DeleteFavoriteService {
       'Something bad happened; please try again later.');
   }
   // === API Call to delete favorite by movieID ===
-  deleteFavorite(): Observable<any> {
+  deleteFavorite(id:string): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.delete(apiUrl + 'users/:username/movies/:MovieID', {
+    const username = localStorage.getItem('user');
+    return this.http.delete(`${apiUrl}users/${username}/movies/${id}`, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -374,17 +377,17 @@ export class DeleteFavoriteService {
   }
 }
 
-// === Edit user ===
+// === Update Profile ===
 @Injectable({
   providedIn: 'root'
 })
 
-export class EditUserService {
+export class UpdateProfileService {
   constructor(private http: HttpClient) { }
   // extract response data
-  private extractResponseData(res: Response | Object): any {
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
-    return body || {};
+    return body || { };
   }
   // handle error
   private handleError(error: HttpErrorResponse): any {
@@ -398,10 +401,11 @@ export class EditUserService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  // === API Call to add favorite by movieID ===
-  editUser(): Observable<any> {
+  // === API Call to update profile data ===
+  updateUser(userDetails: any): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.put(apiUrl + 'users/:username', {
+    const username = localStorage.getItem('user');
+    return this.http.put(`${apiUrl}users/${username}`, userDetails, {
       headers: new HttpHeaders(
         {
           Authorization: 'Bearer ' + token,
@@ -421,7 +425,7 @@ export class EditUserService {
 export class DeleteUserService {
   constructor(private http: HttpClient) { }
   // extract response data
-  private extractResponseData(res: Response | Object): any {
+  private extractResponseData(res: Response | Object): Response | Object {
     const body = res;
     return body || {};
   }
@@ -440,14 +444,19 @@ export class DeleteUserService {
   // === API Call to delete user ===
   deleteUser(): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.delete(apiUrl + 'users/:username', {
-      headers: new HttpHeaders(
-        {
+    const username = localStorage.getItem('user');
+    return this.http.delete(`${apiUrl}users/${username}`, {
+      headers: new HttpHeaders({
           Authorization: 'Bearer ' + token,
-        })
+        }),
+        responseType: 'text',
     }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     );
   }
+}
+
+export class FetchApiDataService {
+  constructor() {}
 }
