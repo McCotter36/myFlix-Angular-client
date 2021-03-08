@@ -1,19 +1,70 @@
-.profile-info {
-  margin: 0 auto;
+.navigation {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+.display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.profile {
+  margin-top: 100px;
+  justify-content: center;
+  width: 300px;
+  border: solid 5px black;
+  padding: 20px;
+}
+
+.profile-buttons {
+  padding: 0;
+  margin: 0;
+}
+
+.favorites-title {
+  position: sticky;
+  top: 65px;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  margin: 20px auto;
+  padding-top: 10px;
+  background-color: black;
+  color: white;
 }
 
 .favorite-card {
+  background-color: white;
   margin: 5px 10px;
-  width: 300px;
-  height: 500px;
+  width: auto;
+  max-width: 250px;
+  height: auto;
+  border: solid black 10px;
+  box-shadow: 10px 10px 20px;
 }
 
 .favorite-card-image {
-  width: 180px;
+  position: relative;
+  width: 225px;
   margin: 0 auto;
+  border: solid white 10px;
 }
 
 .favorite-card-title {
   text-align: center;
-  margin: 10px;
+  margin: 0;
+  h1 {
+  font-weight: bold;
+  }
+} 
+
+.actions {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 auto;
 }

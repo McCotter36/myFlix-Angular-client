@@ -1,18 +1,28 @@
-<div>
-  <h1>myFlix</h1>
-  <button
-  mat-button
-  color="primary"
-  (click)="mainView()"
-  >Home</button>
-  <button
-  mat-button
-  color="primary"
-  (click)="userProfile()"
-  >Profile</button>
-  <button
-  mat-button
-  color="primary"
-  (click)="logout()"
-  >Logout</button>
+<div class="navigation-container">
+  <h1 class="logo">myFlix</h1>
+  <ul class="navgation">
+    <li>
+      <button
+      mat-button
+      class="button"
+      (click)="mainView()"
+      >Home</button>
+    </li>
+    <li>
+      <button
+      mat-button
+      class="button"
+      (click)="userProfile()"
+      >Profile
+      </button>
+    </li>
+    <li>  
+      <button
+      mat-button
+      class="button"
+      (click)="logout()"
+      >Logout
+      </button>
+    </li>
+  </ul>  
 </div>

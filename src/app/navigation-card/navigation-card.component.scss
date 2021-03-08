@@ -1,0 +1,26 @@
+.navigation-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+  border: solid 2px black;
+  background-color: black;
+}
+
+.logo {
+  font-weight: bold;
+  color: white;
+  margin: auto 20px;
+}
+
+ul {
+  margin-left: auto;
+}
+
+li {
+  display: inline;
+  float: right;
+}
+
+.button {
+  color: white;
+}
