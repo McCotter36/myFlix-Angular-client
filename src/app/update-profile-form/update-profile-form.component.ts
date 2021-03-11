@@ -26,10 +26,12 @@ export class UpdateProfileFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //This sends updated profile information to database
+  /** 
+   * This sends updated profile information to database and refreshed the page
+   */ 
   updateUser(): void{
     this.fetchApiData.updateUser(this.userData).subscribe((response) => {
-      // Logic for a successful user registration goes here! (To be implemented)
+      // Logic for a successful user registration goes here!
       this.dialogRef.close(); // This will close the modal on success!
       localStorage.setItem('user', response.Username);
       console.log(response);

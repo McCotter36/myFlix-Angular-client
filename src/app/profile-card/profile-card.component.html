@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<!--
+  This component is the profile view of the application
+  It displays profile infomration as well as a link to update such information and delete the user
+  It also displays the list of favorites added by the user and enables the user to remove 
+  a movie from their list of favorites
+-->
 <body class="body">
   <app-navigation-card class="navigation"></app-navigation-card>
   <div class="display">
@@ -6,7 +11,6 @@
       <div class="profile-info">
         <p>Username: {{user.Username}}</p>
         <p>Email: {{user.Email}}</p>
-        <p>Birthday: {{user.Birthday}}</p>
       </div>
       <div class="profile-buttons">
         <button

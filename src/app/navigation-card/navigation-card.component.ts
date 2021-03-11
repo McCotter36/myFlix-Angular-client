@@ -17,7 +17,9 @@ export class NavigationCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //This logs out the user and returns to the welcome screen
+  /**
+   * Logs the user out and returns them to the welcome screen
+   */
   logout(): void {
     localStorage.clear();
     this.router.navigate(["welcome"]);
@@ -25,14 +27,18 @@ export class NavigationCardComponent implements OnInit {
       duration: 1500,
     });
   }
-  //This navigates back to the main view
+  /**
+   * This navigates to the main view or home view
+   */
   mainView(): void {
     this.router.navigate(['movies']);
     this.snackbar.open("Welcome to the main view", "OK", {
       duration: 1000,
     });
   }
-  //This navigates to the profile view
+  /**
+   * This navigates to the profile view
+  */
   userProfile(): void {
     this.router.navigate(["profile"]);
     this.snackbar.open("Welcome to your profile page", "OK", {

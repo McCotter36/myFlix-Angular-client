@@ -24,10 +24,16 @@ export class MovieCardComponent implements OnInit {
     public snackbar: MatSnackBar,
     ) { }
 
+  /**
+   * getMovies() function called on initialization
+   */
   ngOnInit(): void {
     this.getMovies();
   }
-  // Fetches all movies to view 
+  
+  /**
+   * Fetches movie data and stored it inside the movies array
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
         this.movies = resp;
@@ -36,7 +42,11 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  // Opens Genre dialog box with genre name and genre description
+  /**
+   * Opens dialog with genre name and description
+   * @param name 
+   * @param description 
+   */
   getGenre(name: string, description: string): void {
     this.dialog.open(GenreCardComponent, {
       data: {name, description },
@@ -44,7 +54,13 @@ export class MovieCardComponent implements OnInit {
     });
   }
   
-  // Opens Director dialog box with director name, birth and death, as well as mini bio
+  /**
+   * Opens dialog with Director name birth data and death date
+   * @param name 
+   * @param birth 
+   * @param death 
+   * @param bio 
+   */
   getDirector(name: string, birth: string, death: string, bio: string): void {
     this.dialog.open(DirectorCardComponent, {
       data: { name, birth, death, bio },
@@ -52,7 +68,9 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  // Opens synopsis dialog box with movie title and movie synopsis
+  /**
+   * Opens dialog with movie title and movie synopsis
+   */
   getSynopsis(title:string, synopsis: string): void {
     this.dialog.open(SynopsisCardComponent, {
     data: { title, synopsis },
@@ -60,7 +78,11 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  // Adds movie to list of favorites
+  /**
+   * Adds movie to list of favorite movies
+   * @param id 
+   * @param title 
+   */
   addFavorite(id: string, title: string): void {
     this.fetchFavoriteData.addFavorite(id).subscribe(() => {
       this.snackbar.open(`${title} has been added to your list of favorites!`, 'OK', {

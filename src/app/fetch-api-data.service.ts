@@ -5,18 +5,30 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UpdateProfileFormComponent } from './update-profile-form/update-profile-form.component';
 
-//Declaring the api url that will provide data for the client app
+/**
+ * Declaring the api url that will provide data for the client app
+ */
 const apiUrl = 'https://mccotter-movie-api.herokuapp.com/';
 @Injectable({
   providedIn: 'root'
 })
 
-// === User registration ===
+/**
+ * This class allows users to register a new account
+ */
+
 export class UserRegistrationService {
-  // Inject the HttpClient module to the constructor params
- // This will provide HttpClient to the entire class, making it available via this.http
+  /** 
+   * Inject the HttpClient module to the constructor params
+   * This will provide HttpClient to the entire class, making it available via this.http
+   * @param http
+   */
   constructor(private http: HttpClient) { }
- // Making the api call for the user registration endpoint
+  
+  /**
+   * Making the api call for the user registration endpoint
+   * @param userDetails 
+   */
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http.post(apiUrl + 'users', userDetails).pipe(
@@ -37,7 +49,9 @@ private handleError(error: HttpErrorResponse): any {
   }
 }
 
-// === User login ===
+/**
+ * This class allows a user to log in to their account
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -56,6 +70,11 @@ export class UserLoginService {
     return throwError(
       'Something bad happened: please try again later.');
   }
+
+   /**
+   * api call to the user login endpoint
+   * @param userDetails 
+   */
   public userLogin(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http.post(apiUrl + 'login', userDetails).pipe(
@@ -64,7 +83,10 @@ export class UserLoginService {
   }
 }
 
-// === Get all movies ===
+/**
+ * This class gets a list of all movies in the database and returns 
+ * them as an array of objects
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -88,7 +110,9 @@ export class GetAllMoviesService {
     const body = res;
     return body || { };
   }
-  // === API call to get all movies ===
+ /**
+   * api call to the get all movies endpoint
+   */
   getAllMovies(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies', {headers: new HttpHeaders(
@@ -101,7 +125,9 @@ export class GetAllMoviesService {
   }
 }
 
-// === Get one movie ===
+/**
+ * This class returns a single movie by title
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -125,8 +151,10 @@ export class GetMovieService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  // === API Call to get single movie by title ===
-  getMovie(): Observable<any> {
+  /**
+   * api call to get single movie information
+   */  
+    getMovie(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/:title', {
       headers: new HttpHeaders(
@@ -140,7 +168,9 @@ export class GetMovieService {
   }
 }
 
-// === Get director ===
+/**
+ * This class returns a director object by the director's name
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -164,7 +194,9 @@ export class GetDirectorService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  // === API Call to get director by movie title ===
+ /**
+   * api call to get director data
+   */
   getDirector(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/Directors/:Name', {
@@ -179,7 +211,9 @@ export class GetDirectorService {
   }
 }
 
-// === Get genre ===
+/**
+ * This class returns genre info by genre name
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -203,8 +237,11 @@ export class GetGenreService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  // === API Call to get genre by movie title ===
-  getGenre(): Observable<any> {
+
+  /**
+   * api call to get genre data
+   */
+    getGenre(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/Genres/:Name', {
       headers: new HttpHeaders(
@@ -218,7 +255,9 @@ export class GetGenreService {
   }
 }
 
-// === Get user ===
+/**
+ * This class returns a user object by username
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -242,8 +281,10 @@ export class GetUserService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  // === API Call to get user by username ===
-  getUser(): Observable<any> {
+  /**
+   * api call to get user data by username
+   */
+    getUser(): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
     return this.http.get(`${apiUrl}users/${username}`, {
@@ -258,7 +299,9 @@ export class GetUserService {
   }
 }
 
-// === Get favorite movies for a user ===
+/**
+ * This class returns a user's favorite movies by username
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -282,8 +325,10 @@ export class GetFavoritesService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  // === API Call to get Favorite Movies ===
-  getFavorites(): Observable<any> {
+  /**
+   * api call to get a user's favorite movies
+   */
+    getFavorites(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/:username/movies/:movieID', {
       headers: new HttpHeaders(
@@ -297,7 +342,9 @@ export class GetFavoritesService {
   }
 }
 
-// === Add a movie to favorite Movies ===
+/**
+ * This class adds a movie to the user's list of favorites
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -321,8 +368,11 @@ export class AddFavoriteService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  // === API Call to add favorite by movieID ===
-  addFavorite(id: string): Observable<any> {
+ /**
+   * api call to add a movie to a user's list of favorites
+   * @param id 
+   */
+    addFavorite(id: string): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
     return this.http.post(`${apiUrl}users/${username}/movies/${id}`, id, {
@@ -337,7 +387,9 @@ export class AddFavoriteService {
   }
 }
 
-// === Delete a movie from the favorite movies ===
+/**
+ * This class deletes a movie from the user's list of favorites
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -361,8 +413,11 @@ export class DeleteFavoriteService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  // === API Call to delete favorite by movieID ===
-  deleteFavorite(id:string): Observable<any> {
+ /**
+   * api call to delete a movie to a user's list of favorites
+   * @param id 
+   */
+    deleteFavorite(id:string): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
     return this.http.delete(`${apiUrl}users/${username}/movies/${id}`, {
@@ -377,7 +432,9 @@ export class DeleteFavoriteService {
   }
 }
 
-// === Update Profile ===
+/**
+ * This class allows a user to update their information
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -401,8 +458,11 @@ export class UpdateProfileService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  // === API Call to update profile data ===
-  updateUser(userDetails: any): Observable<any> {
+  /**
+   * api call to edit a user's information
+   * @param userDetails 
+   */
+    updateUser(userDetails: any): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
     return this.http.put(`${apiUrl}users/${username}`, userDetails, {
@@ -417,7 +477,10 @@ export class UpdateProfileService {
   }
 }
 
-// === Delete user ===
+/**
+ * This class allows a user to delete their account 
+ * it will remove the user from the database
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -441,8 +504,10 @@ export class DeleteUserService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  // === API Call to delete user ===
-  deleteUser(): Observable<any> {
+  /**
+   * api call to delete a user
+   */
+    deleteUser(): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
     return this.http.delete(`${apiUrl}users/${username}`, {

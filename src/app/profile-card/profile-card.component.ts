@@ -19,7 +19,6 @@ import { UpdateProfileFormComponent } from '../update-profile-form/update-profil
   styleUrls: ['./profile-card.component.scss']
 })
 export class ProfileCardComponent implements OnInit {
-  //Filter out favorites to display only favorites
   user: any = {};
   movies: any = [];
   favorites: any = [];
@@ -34,10 +33,15 @@ export class ProfileCardComponent implements OnInit {
     public router: Router,
     ) { }
 
+  /**
+   * Calls getUser() function on initialization
+   */
   ngOnInit(): void {
     this.getUser();
   }
-  // Fetch User data
+  /**
+   * Fetch User data
+   */
   getUser(): void {
     this.fetchUserData.getUser().subscribe((resp: any) => {
       this.user = resp;
@@ -45,7 +49,9 @@ export class ProfileCardComponent implements OnInit {
     });
   }
 
-  // Fetches all movies to view == need to filter favorites for profile card
+  /**
+   * Fetches all movies to view and filters out favorites with filterFavoriteMovies() function
+   */
   getMovies(): void {
     this.fetchMovieData.getAllMovies().subscribe((resp: any) => {
         this.movies = resp;
@@ -53,7 +59,10 @@ export class ProfileCardComponent implements OnInit {
     });
   }
 
-  // Opens Genre dialog box with genre name and genre description
+  /**
+   * Opens Genre dialog box with genre name and genre description
+   */
+  
   getGenre(name: string, description: string): void {
     this.dialog.open(GenreCardComponent, {
       data: {name, description },
@@ -61,7 +70,10 @@ export class ProfileCardComponent implements OnInit {
     });
   }
   
-  // Opens Director dialog box with director name, birth and death, as well as mini bio
+  /**
+   * Opens Director dialog box with director name, birth and death, as well as mini bio
+   */
+
   getDirector(name: string, birth: string, death: string, bio: string): void {
     this.dialog.open(DirectorCardComponent, {
       data: { name, birth, death, bio },
@@ -69,7 +81,9 @@ export class ProfileCardComponent implements OnInit {
     });
   }
 
-  // Opens synopsis dialog box with movie title and movie synopsis
+  /** 
+   * Opens synopsis dialog box with movie title and movie synopsis
+   */
   getSynopsis(title: string, synopsis: string): void {
     this.dialog.open(SynopsisCardComponent, {
     data: { title, synopsis },
@@ -77,7 +91,9 @@ export class ProfileCardComponent implements OnInit {
     });
   }
 
-  // Filters list of favorite movies for profile view
+  /** 
+   * Filters list of favorite movies for profile view
+  */
   filterFavoriteMovies(): void {
     this.favorites = this.movies.filter((movie: any) => 
       this.user.FavoriteMovies.includes(movie._id)
@@ -85,7 +101,9 @@ export class ProfileCardComponent implements OnInit {
     return this.favorites;
   }
 
-  // Removes favorite from list of favorites
+  /** 
+   * Removes favorite from list of favorites
+   */ 
   deleteFavorite(id: string, title: string): void {
     this.deleteFavoriteMovie.deleteFavorite(id).subscribe(() => {
       this.snackbar.open(`${title} has been removed from your list of favorites!`, 'OK', {
@@ -97,14 +115,18 @@ export class ProfileCardComponent implements OnInit {
     });
   }
 
-  // Opens update profile card
-  openUpdateProfileDialog(): void {
+  /** 
+   * Opens update profile card
+   */
+    openUpdateProfileDialog(): void {
     this.dialog.open(UpdateProfileFormComponent, {
       width: '300px'
     });
   }
 
-  //this will delete the user profile
+  /** 
+   * Deletes the user profile
+   */
   deleteUser(): void{
     let ok = confirm("Are you sure you want to delete your profile, this cannot be reversed.");
     if (ok) {

@@ -1,7 +1,18 @@
-<!DOCTYPE html>
+<!--
+  This component is diplayed upon login, it is the main view of the application.
+  All movies are displayed here, each on their individual card. 
+  Each card contains actions including Director infomration, Genre information, and Synopsis
+  A user can also add each movie to their list of favorites
+-->
 <body class="body">
+  <!--
+    navigation component is displayed at the top of the main view
+  -->
   <app-navigation-card></app-navigation-card>
   <div class="display">
+    <!--
+      *ng For directive is used to display each movie fetched on their respective card. 
+    -->
     <div class="movie-card" *ngFor="let movie of movies;">
         <div class="movie-card-image-container">
           <img class="movie-card-image" src={{movie.ImagePath}} alt= {{movie.Title}} />
